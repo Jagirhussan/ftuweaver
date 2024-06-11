@@ -1,0 +1,566 @@
+/*TODO fully duplicated with other projects*/
+
+body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+footer {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1;
+  font-weight: 800;
+}
+
+#graph-container {
+  border: #B0B0B0 1px solid;
+  /* height: 70vh;
+  overflow: hidden; */
+}
+
+/* For rubber band selection as we don't have access to the maxGraph CSS files in the project */
+div.mxRubberband {
+  position: absolute;
+  overflow: hidden;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #b5f6e2;
+  background: #b5f6e2;
+}
+
+
+.StyleToolbarItem {
+	margin-left: 15px;
+	margin-bottom: 6px;
+  width: 45px;
+  height: 45px;
+	border-width: 1px;
+}
+
+/* Control the left side */
+.splitleft {
+  height: 100%;
+  width: 12%;
+  position: fixed;
+  z-index: 1;
+  /*top: 0;*/
+  overflow-x: hidden;
+  padding-top: 20px;  
+  left: 0;
+}
+
+/* Control the right side */
+.splitright {
+  height: 100%;
+  width: 88%;
+  position: fixed;
+  z-index: 1;
+  /*top: 0;
+  overflow-x: hidden;*/
+  padding-top: 20px;  
+  right: 0;
+}
+
+.w3-tab {
+  height: 625px;
+}
+
+.container {
+  width:100%;
+  height: 100%;
+  text-align:center;
+}
+
+.left {
+  float:left;
+  width:8%;
+  height:600px;
+}
+
+.center {
+  display: inline-block;
+  margin:0 auto;
+  width:70%;
+  height:600px;
+  overflow-x: hidden;
+}
+
+.right {
+  float:right;
+  width:20%;
+  height:600px;
+}
+
+.accordion {
+  background-color: rgb(100, 164, 228);
+  color: black;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+} 
+
+.active, .accordion:hover {
+  background-color: rgb(100, 164, 228); 
+  width: 100%;
+  border:none;
+  outline:none;
+}
+
+.panel {
+  padding: 0 10px;
+  display: block;
+  background-color: white;
+  overflow: hidden;
+}
+
+.dissipativenet {
+  background-color: rgb(255, 179, 0);
+}
+
+
+/* Styling for State and Parameters table */
+.CellWithComment{
+  position:relative;
+}
+
+.CellComment{
+  display:none;
+  position:absolute; 
+  z-index:100;
+  border:1px;
+  background-color:white;
+  border-style:solid;
+  border-width:1px;
+  border-color:blue;
+  padding:3px;
+  color:black; 
+  top:20px; 
+  left:20px;
+}
+
+.CellWithComment:hover span.CellComment{
+  display:block;
+}
+
+/* Styling for Annotation tree*/
+.closeButton {
+    border-radius: 90%;
+    padding: 0.0em;
+    width: 10px;
+    height: 10px;
+    border: 0.0px solid black;
+    color: red;
+    position: relative;
+  }
+
+
+
+ul, #SupportedAnnotations {
+  list-style-type: none;
+}
+
+/* Remove margins and padding from the parent ul */
+#SupportedAnnotations {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* Style the caret/arrow */
+.caret {
+  cursor: pointer;
+  -ms-user-select: none; /* IE10+ */  
+  -webkit-user-select: none; /* Safari fallback only */
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  user-select: none; /* Prevent text selection */
+}
+
+/* Create the caret/arrow with a unicode, and style it */
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.caret-down::before {
+  transform: rotate(90deg);
+}
+
+/* Hide the nested list */
+.nested {
+  display: none;
+}
+
+/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+.active {
+  display: block;
+}
+
+/*Popup */
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  text-align: left;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.closeDialog {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.closeDialog:hover,
+.closeDialog:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* JSON Viewer */
+.json-viewer {
+	color: #000;
+	padding-left: 20px;
+}
+
+.json-viewer ul {
+	list-style-type: none;
+	margin: 0;
+	margin: 0 0 0 1px;
+	border-left: 1px dotted #ccc;
+	padding-left: 2em;
+}
+
+.json-viewer .hide {
+	display: none;
+}
+
+.json-viewer ul li .type-string,
+.json-viewer ul li .type-date {
+	color: #0B7500;
+	white-space: normal;
+}
+
+.json-viewer ul li .type-boolean {
+	color: #1A01CC;
+	font-weight: bold;
+}
+
+.json-viewer ul li .type-number {
+	color: #1A01CC;
+}
+
+.json-viewer ul li .type-null {
+	color: red;
+}
+
+.json-viewer a.list-link {
+	color: #000;
+	text-decoration: none;
+	position: relative;
+}
+
+.json-viewer a.list-link:before {
+	color: #aaa;
+	content: "\25BC";
+	position: absolute;
+	display: inline-block;
+	width: 1em;
+	left: -1em;
+}
+
+.json-viewer a.list-link.collapsed:before {
+	content: "\25B6";
+}
+
+.json-viewer a.list-link.empty:before {
+	content: "";
+}
+
+.json-viewer .items-ph {
+	color: #aaa;
+	padding: 0 1em;
+}
+
+.json-viewer .items-ph:hover {
+	text-decoration: underline;
+}
+
+.warning-message {
+	margin: 0px 10px 0px 10px;
+	color: orangered;
+}
+
+/*Datatable*/
+.datatable-wrapper.no-header .datatable-container {
+	border-top: 1px solid #d9d9d9;
+}
+
+.datatable-wrapper.no-footer .datatable-container {
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.datatable-top,
+.datatable-bottom {
+	padding: 8px 10px;
+}
+
+.datatable-top > nav:first-child,
+.datatable-top > div:first-child,
+.datatable-bottom > nav:first-child,
+.datatable-bottom > div:first-child {
+	float: left;
+}
+
+.datatable-top > nav:last-child,
+.datatable-top > div:last-child,
+.datatable-bottom > nav:last-child,
+.datatable-bottom > div:last-child {
+	float: right;
+}
+
+.datatable-selector {
+	padding: 6px;
+}
+
+.datatable-input {
+	padding: 6px 12px;
+}
+
+.datatable-info {
+	margin: 7px 0;
+}
+
+/* PAGER */
+.datatable-pagination ul {
+	margin: 0;
+	padding-left: 0;
+}
+
+.datatable-pagination li {
+	list-style: none;
+	float: left;
+}
+
+.datatable-pagination li.datatable-hidden {
+    visibility: hidden;
+}
+
+.datatable-pagination a {
+	border: 1px solid transparent;
+	float: left;
+	margin-left: 2px;
+	padding: 6px 12px;
+	position: relative;
+	text-decoration: none;
+	color: #333;
+    cursor: pointer;
+}
+
+.datatable-pagination a:hover {
+	background-color: #d9d9d9;
+}
+
+.datatable-pagination .datatable-active a,
+.datatable-pagination .datatable-active a:focus,
+.datatable-pagination .datatable-active a:hover {
+	background-color: #d9d9d9;
+	cursor: default;
+}
+
+.datatable-pagination .datatable-ellipsis a,
+.datatable-pagination .datatable-disabled a,
+.datatable-pagination .datatable-disabled a:focus,
+.datatable-pagination .datatable-disabled a:hover {
+    pointer-events: none;
+    cursor: default;
+}
+
+.datatable-pagination .datatable-disabled a,
+.datatable-pagination .datatable-disabled a:focus,
+.datatable-pagination .datatable-disabled a:hover {
+	cursor: not-allowed;
+	opacity: 0.4;
+}
+
+.datatable-pagination .datatable-pagination a {
+	font-weight: bold;
+}
+
+/* TABLE */
+.datatable-table {
+	max-width: 100%;
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: separate;
+}
+
+.datatable-table > tbody > tr > td,
+.datatable-table > tbody > tr > th,
+.datatable-table > tfoot > tr > td,
+.datatable-table > tfoot > tr > th,
+.datatable-table > thead > tr > td,
+.datatable-table > thead > tr > th {
+	vertical-align: top;
+	padding: 8px 10px;
+}
+
+.datatable-table > thead > tr > th {
+	vertical-align: bottom;
+	text-align: left;
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.datatable-table > tfoot > tr > th {
+	vertical-align: bottom;
+	text-align: left;
+	border-top: 1px solid #d9d9d9;
+}
+
+.datatable-table th {
+	vertical-align: bottom;
+	text-align: left;
+}
+
+.datatable-table th a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.datatable-sorter, .datatable-filter {
+	display: inline-block;
+	height: 100%;
+	position: relative;
+	width: 100%;
+}
+
+.datatable-sorter::before,
+.datatable-sorter::after {
+	content: "";
+	height: 0;
+	width: 0;
+	position: absolute;
+	right: 4px;
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
+	opacity: 0.2;
+}
+
+
+.datatable-sorter::before {
+	border-top: 4px solid #000;
+	bottom: 0px;
+}
+
+.datatable-sorter::after {
+	border-bottom: 4px solid #000;
+	border-top: 4px solid transparent;
+	top: 0px;
+}
+
+.datatable-ascending .datatable-sorter::after,
+.datatable-descending .datatable-sorter::before,
+.datatable-ascending .datatable-filter::after,
+.datatable-descending .datatable-filter::before {
+	opacity: 0.6;
+}
+
+.datatable-filter::before {
+    content: "";
+    position: absolute;
+    right: 4px;
+    opacity: 0.2;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+	border-radius: 50%;
+    border-top: 10px solid #000;
+    top: 25%;
+}
+
+.datatable-filter-active .datatable-filter::before {
+    opacity: 0.6;
+}
+
+.datatable-empty {
+	text-align: center;
+}
+
+.datatable-top::after, .datatable-bottom::after {
+	clear: both;
+	content: " ";
+	display: table;
+}
+
+table.datatable-table:focus tr.datatable-cursor > td:first-child {
+	border-left: 3px blue solid;
+}
+
+table.datatable-table:focus {
+	outline: solid 1px black;
+    outline-offset: -1px;
+}
+
+/* Code Editor */
+.editor {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  outline: none;
+  overflow-y: auto;
+  padding-left: 48px;
+  counter-reset: line;
+}
+
+.editor div {
+  display: block;
+  position: relative;
+  white-space: pre-wrap;
+}
+
+.editor div::before {
+  content: counter(line);
+  counter-increment: line;
+  position: absolute;
+  right: calc(100% + 16px);
+  opacity: 0.5;
+}
+
+.incorrectvalue-border{
+  border: 1px solid red;
+}

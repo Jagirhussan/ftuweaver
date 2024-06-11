@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FTU Weaver</title>
+  <link rel="stylesheet" href="loader.css">
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <!-- <script type="module" src="/node_modules/libcellml.js/libcellml.common.js"></script>   -->
+  <script type="module" src="/src/main.ts"></script>
+  <script type="text/javascript" src="/bondgraph/BondGraph_WASM.js"></script>  
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$']],
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+  </script> 
+</head>
+
+<body>
+  <script> 
+    var BondGraphModule = null;
+    Module.onRuntimeInitialized = () => {
+      BondGraphModule = Module;      
+    };
+    //Scripts for supporting UI
+    function mathjaxTypeset(code) {
+      MathJax.startup.promise = MathJax.startup.promise
+        .then(() => MathJax.typesetPromise(code()))
+        .catch((err) => console.log('Typeset failed: ' + err.message));
+      return MathJax.startup.promise;
+    }    
+  </script>
+  <!-- <script type="module">
+    var libcellml = null;
+    import init from "/node_modules/libcellml.js";
+    init().then((instance) => {
+        libcellml = instance;
+        console.log("LibCellML Version",libcellml.versionString());
+        console.log(libcellml);
+    });
+  </script> -->
+  <div id="FTUGraphEditor">
+    <div class="container"> 
+      <div id="loading" class="loading" style = "visibility: visible">
+        Loading&#8230;     
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

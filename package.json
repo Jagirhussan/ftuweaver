@@ -1,0 +1,28 @@
+{
+  "name": "ftuweaver_web_ui",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 8080",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "start": "vite --host 0.0.0.0 --port 8080"
+  },
+  "dependencies": {
+    "@maxgraph/core": "0.1.0",
+    "@ts-stack/markdown": "^1.5.0",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "delaunator": "^5.0.1",
+    "libcellml.js": "^0.4.0",
+    "monaco-editor": "^0.41.0",
+    "pyodide": "^0.23.4",
+    "simple-datatables": "^7.3.0",
+    "vanilla-picker": "^2.12.1"
+  },
+  "devDependencies": {
+    "typescript": "~4.9.4",
+    "vite": "^4.5.2",
+    "vite-plugin-mkcert": "^1.15.0",
+    "vite-plugin-monaco-editor": "^1.1.0"
+  }
+}
