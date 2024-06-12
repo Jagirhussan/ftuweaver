@@ -1,6 +1,7 @@
 # FTU Weaver
 
 A web brower (MS Edge and Google Chrome) based FTU composition editor, and input-ouput Port-hamiltonian generator.
+See [Technical Report](TechnicalReport.pdf) for details on FTUs, related mathematics and tool documentation.
 
 ## Workflow for creating a FTU
 
