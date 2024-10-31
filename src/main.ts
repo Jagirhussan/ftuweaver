@@ -1074,9 +1074,8 @@ async function main() {
       "scipy",
       "networkx",
       "sympy",
-      "/pythonlibs/antlr4_python3_runtime-4.7.2-py3-none-any.whl",
-      "/pythonlibs/latex2sympy2-1.9.1-py3-none-any.whl",
-      "/pythonlibs/ftuutils-0.0.1-py3-none-any.whl"
+      "/pythonlibs/antlr4_python3_runtime-4.10-py3-none-any.whl",
+      "/pythonlibs/ftuutils-0.1.4-cp39-cp39-win_amd64.whl"
     ]
   );
   return pyodide;
@@ -1128,15 +1127,20 @@ async function composeUsingPython() {
 
     let pyodide = await pyodideReadyPromise;
 
-    const jt = document.getElementById("jsonTxt").value;
+    const jt = JSON.stringify(document.getElementById("jsonTxt").value);
     if(jt.length>0){
     //Remove html decorations prior to running code
     let code = `
 from ftuutils.base import FTUGraph
-import json
+import json, js
 ftu = FTUGraph()
-composition = json.loads("${jt}")
-ftu.composeCompositePHSFromGraphicalObject(composition)
+composition = json.loads(${jt})
+composer,composition = ftu.composeCompositePHSFromGraphicalObject(composition)
+ltx = composer.generateLatexReport()
+pcode = composer.exportAsPython()
+js.loadGeneratedLatex(ltx)  
+js.loadGeneratedPython(pcode)
+js.setupSourceComposition(json.dumps(composition))    
 `;
    
       showStatusMessage('Starting composition',10000)
@@ -4516,18 +4520,18 @@ var intervalId = setInterval(function () {
     setupFTUGraphEditor();
     document.pyodideMplTarget = document.getElementById('compositemodelphsimages')
     clearInterval(intervalId);
-    let wfdrequest = new XMLHttpRequest();
-    wfdrequest.open("GET", "src/workflowdescription.md", true);
-    wfdrequest.send(null);
-    wfdrequest.onreadystatechange = function () {
-      if (wfdrequest.readyState === 4 && wfdrequest.status === 200) {
-        let type = wfdrequest.getResponseHeader("Content-Type");
-        if (type.indexOf("text") !== 1) {
-          document.getElementById("helpinfocontent").innerHTML = Marked.parse(
-            wfdrequest.responseText
-          );
-        }
-      }
-    };
+    // let wfdrequest = new XMLHttpRequest();
+    // wfdrequest.open("GET", "src/workflowdescription.md", true);
+    // wfdrequest.send(null);
+    // wfdrequest.onreadystatechange = function () {
+    //   if (wfdrequest.readyState === 4 && wfdrequest.status === 200) {
+    //     let type = wfdrequest.getResponseHeader("Content-Type");
+    //     if (type.indexOf("text") !== 1) {
+    //       document.getElementById("helpinfocontent").innerHTML = Marked.parse(
+    //         wfdrequest.responseText
+    //       );
+    //     }
+    //   }
+    // };
   }
 }, 500);
